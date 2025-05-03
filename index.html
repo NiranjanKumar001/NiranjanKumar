@@ -124,7 +124,7 @@
             const target = this.getAttribute("href");
             
             // Only apply transition for actual page links, not hash links
-            if (!target || target === "" || target.startsWith("#")) return;
+            if (!target || target === "" || target.startsWith("/")) return;
             
             e.preventDefault();
             document.body.classList.add("transitioning");
