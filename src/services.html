@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/styles.css" />
+    <link rel="stylesheet" href="../public/services.css" />
+    <title>Services - Niranjan Kumar</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+
+  <body>
+    <nav>
+      <div class="links">
+        <a href="services.html" class="nav-link nav-services">
+          <span class="nav-text">Services</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/></svg>
+          </span>
+        </a>
+        <a href="projects.html" class="nav-link nav-projects">
+          <span class="nav-text">Projects</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><polygon points="12 2 22 7 12 12 2 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </span>
+        </a>
+      </div>
+      <div class="nav-logo">
+        <a href="../index.html">NIRANJAN<br />KUMAR</a>
+      </div>
+      <div class="links">
+        <a href="about.html" class="nav-link nav-about">
+          <span class="nav-text">About</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg>
+          </span>
+        </a>
+        <a href="contact.html" class="nav-link nav-contact">
+          <span class="nav-text">Contact</span>
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg>
+          </span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="services-container">
+      
+      <div class="section-content">
+        <p>We offer creative solutions for your brand's visual identity and marketing needs.</p>
+        
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="black" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Brand Identity</h3>
+            <p>We create comprehensive brand identities that communicate your values and resonate with your audience.</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="black" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+            </div>
+            <h3>Web Design</h3>
+            <p>Our responsive web designs combine aesthetics with functionality to create engaging digital experiences.</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="black" stroke-width="1"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12H7M17 12h2"/></svg>
+            </div>
+            <h3>Photography</h3>
+            <p>Professional photography services that capture your brand's essence and elevate your visual content.</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="black" stroke-width="1"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            <h3>Motion Graphics</h3>
+            <p>Dynamic motion graphics and animations that bring your brand story to life and increase engagement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-transition"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll("nav a");
+        const transitionElement = document.querySelector(".page-transition");
+        
+        // Handle incoming transitions (page load)
+        gsap.set(".page-transition", { height: "100%" });
+        gsap.to(".page-transition", {
+          height: "0%",
+          duration: 0.5,
+          ease: "power2.out",
+          delay: 0.1
+        });
+        
+        // Handle outgoing transitions (link clicks)
+        navLinks.forEach(link => {
+          link.addEventListener("click", function(e) {
+            const target = this.getAttribute("href");
+            
+            // Only apply transition for actual page links
+            // if (!target || target === "" || target.startsWith("#")) return;
+            
+            e.preventDefault();
+            document.body.classList.add("transitioning");
+            
+            // Animate transition up
+            gsap.to(".page-transition", {
+              height: "100%", 
+              duration: 0.5,
+              ease: "power2.out",
+              onComplete: () => {
+                window.location.href = target;
+              }
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
