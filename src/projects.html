@@ -1,129 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../public/styles.css" /> 
-    <link rel="stylesheet" href="../public/projects.css" /> 
-    <title>Projects - Niranjan Kumar</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/public/projects.css">
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>
+        <span>Enter a Universe</span>
+         Powered by Imagination and Creativity
+      </h1>
+    </section>
+    <section class="sticky">
+      <div class="bg-img">
+        <img src="/public/img18.jpg" alt=""/>
+      </div>
+      <canvas class="outline-layer"></canvas>
 
-  <body>
-    <nav>
-      <div class="links">
-        <a href="services.html" class="nav-link nav-services">
-          <span class="nav-text">Services</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/></svg>
-          </span>
-        </a>
-        <a href="projects.html" class="nav-link nav-projects">
-          <span class="nav-text">Projects</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><polygon points="12 2 22 7 12 12 2 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </span>
-        </a>
-      </div>
-      <div class="nav-logo">
-        <a href="../index.html">NIRANJAN<br />KUMAR</a>
-      </div>
-      <div class="links">
-        <a href="about.html" class="nav-link nav-about">
-          <span class="nav-text">About</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg>
-          </span>
-        </a>
-        <a href="contact.html" class="nav-link nav-contact">
-          <span class="nav-text">Contact</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg>
-          </span>
-        </a>
-      </div>
-    </nav>
-
-    <div class="projects-container">
-      
-      <div class="section-content">
-        <p>Explore our latest creative work and collaborations.</p>
-        
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-image">
-              <img src="img1.jpg" alt="Project 1">
-            </div>
-            <h3>Brand Identity</h3>
-            <p>Client: Acme Corporation</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-img"><img src="/public/img2.jpg" alt="" /></div>
+          <div class="card-title">
+            <h1>Crisom Red</h1>
+            <p>PRC02K32</p>
           </div>
-          
-          <div class="project-card">
-            <div class="project-image">
-              <img src="img2.jpg" alt="Project 2">
-            </div>
-            <h3>Web Design</h3>
-            <p>Client: Global Tech</p>
+        </div>
+        <div class="card">
+          <div class="card-img"><img src="/public/img3.jpg" alt="" /></div>
+          <div class="card-title">
+            <h1>Wasteland Echoes</h1>
+            <p>PRC02JC3</p>
           </div>
-          
-          <div class="project-card">
-            <div class="project-image">
-              <img src="img3.jpg" alt="Project 3">
-            </div>
-            <h3>Photography</h3>
-            <p>Client: Fashion Forward</p>
-          </div>
-          
-          <div class="project-card">
-            <div class="project-image">
-              <img src="img4.jpg" alt="Project 4">
-            </div>
-            <h3>Motion Graphics</h3>
-            <p>Client: Media Plus</p>
+        </div>
+        <div class="card">
+          <div class="card-img"><img src="/public/img4.jpg" alt="" /></div>
+          <div class="card-title">
+            <h1>Silent Veil</h1>
+            <p>PRC02JD2</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="page-transition"></div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const navLinks = document.querySelectorAll("nav a");
-        const transitionElement = document.querySelector(".page-transition");
-        
-        // Handle incoming transitions (page load)
-        gsap.set(".page-transition", { height: "100%" });
-        gsap.to(".page-transition", {
-          height: "0%",
-          duration: 0.5,
-          ease: "power2.out",
-          delay: 0.1
-        });
-        
-        // Handle outgoing transitions (link clicks)
-        navLinks.forEach(link => {
-          link.addEventListener("click", function(e) {
-            const target = this.getAttribute("href");
-            
-            // Only apply transition for actual page links
-            // if (!target || target === "" || target.startsWith("#")) return;
-            
-            e.preventDefault();
-            document.body.classList.add("transitioning");
-            
-            // Animate transition up
-            gsap.to(".page-transition", {
-              height: "100%", 
-              duration: 0.5,
-              ease: "power2.out",
-              onComplete: () => {
-                window.location.href = target;
-              }
-            });
-          });
-        });
-      });
-    </script>
-  </body>
+      <canvas class="fill-layer"></canvas>
+    </section>
+    <section class="outro">
+      <h1> chase the <span>shadows</span> to embrace the light</h1>
+    </section>
+  </div>
+  <script>
+    
+  </script>
+</body>
 </html>
