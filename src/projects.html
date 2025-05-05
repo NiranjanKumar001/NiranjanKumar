@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="/public/projects.css">
+  
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
+
 <body>
   <div class="container">
     <section class="hero">
       <h1>
         <span>Enter a Universe</span>
-         Powered by Imagination and Creativity
+        Powered by Imagination and Creativity
       </h1>
     </section>
     <section class="sticky">
       <div class="bg-img">
-        <img src="/public/img18.jpg" alt=""/>
+        <img src="/public/img18.jpg" alt="" />
       </div>
       <canvas class="outline-layer"></canvas>
 
       <div class="cards">
         <div class="card">
-          <div class="card-img"><img src="/public/img2.jpg" alt="" /></div>
+          <div class="card-img"><img src="/public/p1.png" alt="" /></div>
           <div class="card-title">
-            <h1>Crisom Red</h1>
-            <p>PRC02K32</p>
+            <h1>Fabrion</h1>
+            <p>Website Builder</p>
           </div>
         </div>
         <div class="card">
-          <div class="card-img"><img src="/public/img3.jpg" alt="" /></div>
+          <div class="card-img"><img src="/public/p2.png" alt="" /></div>
           <div class="card-title">
-            <h1>Wasteland Echoes</h1>
-            <p>PRC02JC3</p>
+            <h1>Go Prakritik</h1>
+            <p>E-Commerce Website</p>
           </div>
         </div>
         <div class="card">
-          <div class="card-img"><img src="/public/img4.jpg" alt="" /></div>
+          <div class="card-img"><img src="/public/p3.png" alt="" /></div>
           <div class="card-title">
-            <h1>Silent Veil</h1>
-            <p>PRC02JD2</p>
+            <h1>Cre-Avant</h1>
+            <p>STARTUP Pitch Website</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img"><img src="/public/p4.png" alt="" /></div>
+          <div class="card-title">
+            <h1>Iphone 16 Pro</h1>
+            <p>First Clone</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img"><img src="/public/p5.png" alt="" /></div>
+          <div class="card-title">
+            <h1>TechNexus</h1>
+            <p>Hackathon Finder</p>
           </div>
         </div>
       </div>
@@ -50,8 +70,212 @@
       <h1> chase the <span>shadows</span> to embrace the light</h1>
     </section>
   </div>
+
   <script>
-    
+    document.addEventListener("DOMContentLoaded", () => {
+      // Register the ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Create a simple smooth scroll implementation (no Lenis dependency)
+      let currentScroll = window.scrollY;
+      let targetScroll = window.scrollY;
+      let scrollEase = 0.1;
+      
+      // Simple smooth scroll logic
+      function smoothScroll() {
+        currentScroll = currentScroll + (targetScroll - currentScroll) * scrollEase;
+        
+        // Trigger ScrollTrigger update
+        ScrollTrigger.update();
+        
+        // Request next frame
+        requestAnimationFrame(smoothScroll);
+      }
+      
+      // Start smooth scroll animation
+      smoothScroll();
+      
+      // Update targetScroll on window scroll
+      window.addEventListener('scroll', () => {
+        targetScroll = window.scrollY;
+      });
+
+      const stickySection = document.querySelector(".sticky");
+      const stickyHeight = window.innerHeight * 5;
+      const outlineCanvas = document.querySelector(".outline-layer");
+      const fillCanvas = document.querySelector(".fill-layer");
+      const outlineCtx = outlineCanvas.getContext("2d");
+      const fillCtx = fillCanvas.getContext("2d");
+
+      function setCanvasSize(canvas, ctx) {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = 0.3*window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+        ctx.scale(dpr, dpr);
+      }
+
+      setCanvasSize(outlineCanvas, outlineCtx);
+      setCanvasSize(fillCanvas, fillCtx);
+
+      const triangleSize = 50;
+      const lineWidth = 1;
+      const SCALE_THRESHOLD = 0.01;
+      let triangleStates = [];
+      let animationFrameId = null;
+      let canvasXPosition = 0;
+
+      function drawTriangle(ctx, x, y, fillScale = 0, flipped = false) {
+        const halfSize = triangleSize / 2;
+
+        // Draw outline triangle
+        if (fillScale < SCALE_THRESHOLD) {
+          ctx.beginPath();
+          if (!flipped) {
+            ctx.moveTo(x, y - halfSize);
+            ctx.lineTo(x + halfSize, y + halfSize);
+            ctx.lineTo(x - halfSize, y + halfSize);
+          } else {
+            ctx.moveTo(x, y + halfSize);
+            ctx.lineTo(x + halfSize, y - halfSize);
+            ctx.lineTo(x - halfSize, y - halfSize);
+          }
+          ctx.closePath();
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.075)";
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+        }
+
+        // Draw filled triangle
+        if (fillScale >= SCALE_THRESHOLD) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.scale(fillScale, fillScale);
+          ctx.translate(-x, -y);
+
+          ctx.beginPath();
+          if (!flipped) {
+            ctx.moveTo(x, y - halfSize);
+            ctx.lineTo(x + halfSize, y + halfSize);
+            ctx.lineTo(x - halfSize, y + halfSize);
+          } else {
+            ctx.moveTo(x, y + halfSize);
+            ctx.lineTo(x + halfSize, y - halfSize);
+            ctx.lineTo(x - halfSize, y - halfSize);
+          }
+          ctx.closePath();
+          ctx.fillStyle = "#ff6b00";
+          ctx.strokeStyle = "#ff6b00";
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      function drawGrid(scrollProgress = 0) {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+        outlineCtx.clearRect(0, 0, outlineCanvas.width, outlineCanvas.height);
+        fillCtx.clearRect(0, 0, fillCanvas.width, fillCanvas.height);
+
+        const animationProgress = scrollProgress <= 0.65 ? 0 : (scrollProgress - 0.65) / 0.35;
+
+        let needsUpdate = false;
+        const animationSpeed = 0.15;
+
+        // Draw outline triangles
+        triangleStates.forEach((state) => {
+          if (state.scale < 1) {
+            const x = state.col * (triangleSize * 0.5) + triangleSize / 2 + canvasXPosition;
+            const y = state.row * triangleSize + triangleSize / 2;
+            const flipped = (state.row + state.col) % 2 !== 0;
+            drawTriangle(outlineCtx, x, y, 0, flipped);
+          }
+        });
+
+        // Draw filled triangles with animation
+        triangleStates.forEach((state) => {
+          const shouldBeVisible = state.order / triangleStates.length <= animationProgress;
+          const targetScale = shouldBeVisible ? 1 : 0;
+          const newScale = state.scale + (targetScale - state.scale) * animationSpeed;
+
+          if (Math.abs(newScale - state.scale) > 0.001) {
+            state.scale = newScale;
+            needsUpdate = true;
+          }
+
+          if (state.scale >= SCALE_THRESHOLD) {
+            const x = state.col * (triangleSize * 0.5) + triangleSize / 2 + canvasXPosition;
+            const y = state.row * triangleSize + triangleSize / 2;
+            const flipped = (state.row + state.col) % 2 !== 0;
+            drawTriangle(fillCtx, x, y, state.scale, flipped);
+          }
+        });
+
+        if (needsUpdate) {
+          animationFrameId = requestAnimationFrame(() => drawGrid(scrollProgress));
+        }
+      }
+
+      function initializeTriangles() {
+        const cols = Math.floor(window.innerWidth / triangleSize) + 1;
+        const rows = Math.floor(window.innerHeight / triangleSize) * 2;
+
+        // Create all possible positions
+        let positions = [];
+        for (let row = 0; row < rows; row++) {
+          for (let col = 0; col < cols; col++) {
+            positions.push({ row, col });
+          }
+        }
+
+        // Shuffle positions array
+        for (let i = positions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [positions[i], positions[j]] = [positions[j], positions[i]];
+        }
+
+        // Create triangle states
+        triangleStates = positions.map((pos, index) => ({
+          row: pos.row,
+          col: pos.col,
+          scale: 0,
+          order: index
+        }));
+      }
+
+      // Initialize and draw on load
+      initializeTriangles();
+      drawGrid();
+
+      // Handle window resize
+      window.addEventListener("resize", () => {
+        
+        initializeTriangles();
+        drawGrid();
+      });
+
+      ScrollTrigger.create({
+        trigger: stickySection,
+        start: "top top",
+        end: `+=${stickyHeight}px`,
+        pin: true,
+        onUpdate: (self) => {
+          canvasXPosition = -self.progress * 200;
+          drawGrid(self.progress);
+
+          const cards = document.querySelector(".cards");
+          const progress = Math.min(self.progress / 0.654, 1);
+          gsap.set(cards, {
+            x: -progress * window.innerWidth * 2,
+          });
+        },
+      });
+    });
   </script>
 </body>
+
 </html>

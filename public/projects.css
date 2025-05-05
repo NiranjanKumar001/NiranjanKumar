@@ -74,10 +74,24 @@ canvas {
 
 canvas.outline-layer {
   z-index: 1;
+  /* margin-left: 25%; */
 }
 
 canvas.fill-layer {
   z-index: 10;
+  /* margin-left: 45%; */
+}
+
+.outro{
+  background-color: #ff6b00;
+}
+
+.outro h1{
+  color: #fff;
+}
+
+.outro h1 span{
+  color: #000;
 }
 
 .cards {
