@@ -1,59 +1,194 @@
-/* About page styles */
+/* Base Styles */
+body {
+  background-color: #f8f8f8;
+  color: #333;
+  font-family: "PP Neue Montreal", sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* Main Wrapper */
+.about-wrapper {
+  min-height: 100vh;
+  padding-top: 60px;
+}
+
 .about-container {
-    padding: 120px 40px 40px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 30px 0;
+  text-align: center;
+}
+
+.hero-title {
+  font-family: "Druk", sans-serif;
+  font-size: 2.5rem;
+  font-style: italic;
+  margin-bottom: 20px;
+  color: #ff6b00;
+}
+
+.hero-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 3px solid #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bio Section */
+.bio-section {
+  padding: 30px 0;
+}
+
+.bio-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bio-content p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: "Druk", sans-serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: #222;
+  margin: 30px 0 20px;
+  text-align: center;
+}
+
+/* Experience Section */
+.experience-section {
+  padding: 30px 0;
+}
+
+.experience-grid {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.experience-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  border-left: 3px solid #ff6b00;
+}
+
+.experience-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.company {
+  font-weight: bold;
+  color: #ff6b00;
+  margin-bottom: 5px;
+}
+
+.date {
+  color: #777;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.experience-details {
+  margin-bottom: 15px;
+  padding-left: 15px;
+}
+
+.experience-details li {
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #ff6b00;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* Skills Section */
+.skills-section {
+  padding: 30px 0 50px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.skill-category {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.skill-category h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #222;
+  text-align: center;
+}
+
+.skill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-list li {
+  padding: 5px 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
   }
   
-  .section-title {
-    margin-bottom: 40px;
-    text-align: center;
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem;
   }
   
-  .section-title h2 {
-    font-family: "Druk", sans-serif;
-    font-size: 3rem;
-    text-transform: uppercase;
-    font-style: italic;
+  .about-container {
+    padding: 0 15px;
   }
-  
-  .section-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .section-content p {
-    font-family: "PP Neue Montreal", sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    text-transform: none;
-  }
-  
-  .about-image {
-    margin: 40px 0;
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-  }
-  
-  .about-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  @media (max-width: 900px) {
-    .about-container {
-      padding: 100px 20px 40px 20px;
-    }
-    
-    .section-title h2 {
-      font-size: 2.5rem;
-    }
-    
-    .about-image {
-      height: 250px;
-    }
-  }
-  
+}
