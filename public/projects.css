@@ -172,6 +172,7 @@ canvas.fill-layer {
   display: flex;
   gap: 2em;
   z-index: 100;
+    font-family: "PP Neue Montreal";
 }
 
 .nav-logo {
@@ -209,7 +210,8 @@ canvas.fill-layer {
 }
 
 .nav-logo a {
-  font-family: "Druk", sans-serif;
+    font-family: "PP Neue Montreal";
+
   font-size: 1.75rem;
   font-weight: bolder;
   font-style: italic;
@@ -242,3 +244,4 @@ canvas.fill-layer {
   }
  
 }
+

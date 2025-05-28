@@ -1,170 +1,602 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../public/styles.css" />
-    <link rel="stylesheet" href="../public/services.css" />
-    <title>Services - Niranjan Kumar | Full Stack Developer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  </head>
 
-  <body>
-    <nav>
-      <div class="links">
-        <a href="/src/services.html" class="nav-link nav-services active">
-          <span class="nav-text">Services</span>
-          <span class="nav-icon">
-            <i class="fas fa-code"></i>
-          </span>
-        </a>
-        <a href="/src/projects.html" class="nav-link nav-projects">
-          <span class="nav-text">Projects</span>
-          <span class="nav-icon">
-            <i class="fas fa-project-diagram"></i>
-          </span>
-        </a>
-      </div>
-      <div class="nav-logo">
-        <a href="/index.html">NIRANJAN<br />KUMAR</a>
-      </div>
-      <div class="links">
-        <a href="/src/about.html" class="nav-link nav-about">
-          <span class="nav-text">About</span>
-          <span class="nav-icon">
-            <i class="fas fa-user"></i>
-          </span>
-        </a>
-        <a href="/src/contact.html" class="nav-link nav-contact">
-          <span class="nav-text">Contact</span>
-          <span class="nav-icon">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </a>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - Niranjan Kumar | Full Stack Developer</title>
+  <link rel="stylesheet" href="../public/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <main class="services-wrapper">
-      <div class="services-container">
-        <div class="section-content">
-          <div class="services-grid">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-laptop-code"></i>
-              </div>
-              <h3>Full-Stack Development</h3>
-              <p>End-to-end web application development using modern MERN stack (MongoDB, Express, React, Node.js) with Next.js for optimal performance.</p>
-              <ul class="tech-list">
-                <li>Next.js</li>
-                <li>React</li>
-                <li>Node.js</li>
-                <li>MongoDB</li>
-              </ul>
+    body {
+      background-color: #f8f8f8;
+      color: #333;
+      font-family: "PP Neue Montreal", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background Elements */
+    .background-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+    }
+
+    .circle-1 {
+      width: 400px;
+      height: 400px;
+      background: #ff6b00;
+      top: -100px;
+      left: -100px;
+    }
+
+    .circle-2 {
+      width: 600px;
+      height: 600px;
+      background: #3a0ca3;
+      bottom: -200px;
+      right: -200px;
+    }
+
+    .circle-3 {
+      width: 300px;
+      height: 300px;
+      background: #f72585;
+      top: 50%;
+      left: 70%;
+    }
+
+    .bg-grid-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Navigation Styles */
+    nav {
+      position: fixed;
+      width: 100vw;
+      padding: 1em;
+      display: flex;
+      gap: 2em;
+      z-index: 100;
+    }
+
+    nav > * {
+      flex: 1;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav-logo {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-logo a {
+      font-family: "Druk", sans-serif;
+      font-size: 1.75rem;
+      font-weight: bolder;
+      font-style: italic;
+      line-height: 0.9;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      text-transform: uppercase;
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.7rem;
+      color: #000;
+    }
+
+    .nav-link.active {
+      font-weight: bold;
+    }
+
+    .nav-text {
+      display: inline;
+    }
+
+    .nav-icon {
+      display: none;
+      font-size: 1.2rem;
+    }
+
+    /* Main Wrapper */
+    .services-wrapper {
+      min-height: 100vh;
+      padding-top: 80px;
+      position: relative;
+    }
+
+    .services-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+      position: relative;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 80px 0 120px;
+      position: relative;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+    }
+
+    .title-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .hero-title {
+      font-family: "Druk", sans-serif;
+      font-size: 5rem;
+      font-style: italic;
+      line-height: 0.9;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(45deg, #ff6b00, #f72585);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .title-highlight {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 107, 0, 0.1);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    /* Section Styles */
+    section {
+      margin-bottom: 100px;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 50px;
+      position: relative;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: "Druk", sans-serif;
+      font-size: 3rem;
+      font-style: italic;
+      margin: 0 0 15px;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(45deg, #ff6b00, #f72585);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .title-underline {
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff6b00, #f72585);
+      margin: 10px auto 0;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    /* Service Cards */
+    .service-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #ff6b00, #f72585);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      color: #ff6b00;
+      margin-bottom: 25px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 20px;
+      font-family: "Druk", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #222;
+    }
+
+    .service-card p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      text-transform: none;
+      font-family: "PP Neue Montreal", sans-serif;
+    }
+
+    /* Technology List */
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tech-list li {
+      background: rgba(255, 107, 0, 0.1);
+      color: #ff6b00;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-family: "Akkurat Mono", monospace;
+      font-weight: bold;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 20px;
+      background: #fff;
+      margin-top: 60px;
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255, 107, 0, 0.05), rgba(58, 12, 163, 0.05));
+      z-index: -1;
+    }
+
+    .cta-section h2 {
+      font-family: "Druk", sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-style: italic;
+      color: #222;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #ff6b00, #f72585);
+      color: white;
+      border-radius: 30px;
+      font-family: "Druk", sans-serif;
+      text-transform: uppercase;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #f72585, #ff6b00);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+    }
+
+    .cta-button:hover::before {
+      opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero-title {
+        font-size: 4rem;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .nav-text {
+        display: none;
+      }
+
+      .nav-icon {
+        display: inline-block;
+      }
+
+      .links {
+        justify-content: center;
+        gap: 1.5em;
+      }
+
+      .nav-logo {
+        flex: 1 1 100%;
+        text-align: center;
+      }
+
+      nav {
+        gap: 0;
+        padding: 15px 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-card {
+        padding: 30px;
+      }
+
+      .cta-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .nav-logo a {
+        font-size: 1.5rem;
+      }
+
+      .nav-icon {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-elements">
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+    <div class="bg-grid-lines"></div>
+  </div>
+
+  <nav>
+    <div class="links">
+      <a href="/src/services.html" class="nav-link nav-services active">
+        <span class="nav-text">Services</span>
+        <span class="nav-icon">
+          <i class="fas fa-code"></i>
+        </span>
+      </a>
+      <a href="/src/projects.html" class="nav-link nav-projects">
+        <span class="nav-text">Projects</span>
+        <span class="nav-icon">
+          <i class="fas fa-project-diagram"></i>
+        </span>
+      </a>
+    </div>
+    <div class="nav-logo">
+      <a href="/index.html">NIRANJAN<br />KUMAR</a>
+    </div>
+    <div class="links">
+      <a href="/src/about.html" class="nav-link nav-about">
+        <span class="nav-text">About</span>
+        <span class="nav-icon">
+          <i class="fas fa-user"></i>
+        </span>
+      </a>
+      <a href="/src/contact.html" class="nav-link nav-contact">
+        <span class="nav-text">Contact</span>
+        <span class="nav-icon">
+          <i class="fas fa-envelope"></i>
+        </span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="services-wrapper">
+    <div class="services-container">
+
+      <section class="services-section">
+        <div class="section-header">
+          <h2 class="section-title">My Services</h2>
+          <div class="title-underline"></div>
+        </div>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-laptop-code"></i>
             </div>
-            
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-shopping-cart"></i>
-              </div>
-              <h3>E-Commerce Solutions</h3>
-              <p>Custom e-commerce platforms with secure payment gateways (Razorpay/Stripe), inventory management, and responsive shopping experiences.</p>
-              <ul class="tech-list">
-                <li>Payment Integration</li>
-                <li>Cart Systems</li>
-                <li>Order Tracking</li>
-                <li>Admin Dashboards</li>
-              </ul>
+            <h3>Full-Stack Development</h3>
+            <p>End-to-end web application development using modern MERN stack (MongoDB, Express, React, Node.js) with Next.js for optimal performance and scalability.</p>
+            <ul class="tech-list">
+              <li>Next.js</li>
+              <li>React</li>
+              <li>Node.js</li>
+              <li>MongoDB</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-shopping-cart"></i>
             </div>
-            
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-robot"></i>
-              </div>
-              <h3>AI Integration</h3>
-              <p>Implementing AI features like Gemini API, LangChain, and machine learning models to enhance user experiences and automate processes.</p>
-              <ul class="tech-list">
-                <li>Gemini API</li>
-                <li>LangChain</li>
-                <li>Python ML</li>
-                <li>Voice Bots</li>
-              </ul>
+            <h3>E-Commerce Solutions</h3>
+            <p>Custom e-commerce platforms with secure payment gateways, inventory management, and responsive shopping experiences tailored to your business needs.</p>
+            <ul class="tech-list">
+              <li>Payment Integration</li>
+              <li>Cart Systems</li>
+              <li>Order Tracking</li>
+              <li>Admin Dashboards</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-robot"></i>
             </div>
-            
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-mobile-alt"></i>
-              </div>
-              <h3>Responsive UI/UX</h3>
-              <p>Creating beautiful, intuitive interfaces with Tailwind CSS, Figma designs, and Three.js for immersive experiences across all devices.</p>
-              <ul class="tech-list">
-                <li>Tailwind CSS</li>
-                <li>Figma</li>
-                <li>Three.js</li>
-                <li>Blender</li>
-              </ul>
+            <h3>AI Integration</h3>
+            <p>Implementing cutting-edge AI features to enhance user experiences, automate processes, and provide intelligent solutions for your business challenges.</p>
+            <ul class="tech-list">
+              <li>Gemini API</li>
+              <li>LangChain</li>
+              <li>Python ML</li>
+              <li>Voice Bots</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-mobile-alt"></i>
             </div>
-            
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-database"></i>
-              </div>
-              <h3>Backend & APIs</h3>
-              <p>Building robust RESTful APIs with Express.js, integrating databases (MongoDB, Sanity.io), and implementing secure authentication.</p>
-              <ul class="tech-list">
-                <li>Express.js</li>
-                <li>Sanity.io</li>
-                <li>Convex.dev</li>
-                <li>Firebase</li>
-              </ul>
+            <h3>Responsive UI/UX</h3>
+            <p>Creating beautiful, intuitive interfaces with modern design tools and frameworks that work seamlessly across all devices and screen sizes.</p>
+            <ul class="tech-list">
+              <li>Tailwind CSS</li>
+              <li>Figma</li>
+              <li>Three.js</li>
+              <li>Blender</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-database"></i>
             </div>
-            
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-cloud-upload-alt"></i>
-              </div>
-              <h3>Deployment & DevOps</h3>
-              <p>Seamless deployment solutions using Vercel, Netlify, and Docker containers with CI/CD pipelines for reliable updates.</p>
-              <ul class="tech-list">
-                <li>Vercel</li>
-                <li>Netlify</li>
-                <li>Docker</li>
-                <li>CI/CD</li>
-              </ul>
+            <h3>Backend & APIs</h3>
+            <p>Building robust, secure backend systems with efficient APIs that power your applications and integrate with various services and databases.</p>
+            <ul class="tech-list">
+              <li>Express.js</li>
+              <li>Sanity.io</li>
+              <li>Convex.dev</li>
+              <li>Firebase</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-cloud-upload-alt"></i>
             </div>
+            <h3>Deployment & DevOps</h3>
+            <p>Seamless deployment solutions with CI/CD pipelines, containerization, and cloud services for reliable, scalable application hosting.</p>
+            <ul class="tech-list">
+              <li>Vercel</li>
+              <li>Netlify</li>
+              <li>Docker</li>
+              <li>CI/CD</li>
+            </ul>
           </div>
         </div>
-      </div>
+      </section>
 
       <div class="cta-section">
         <h2>Ready to build something amazing?</h2>
         <a href="/src/contact.html" class="cta-button">Get in Touch</a>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <div class="page-transition"></div>
+ 
+</body>
 
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Set active nav link
-        const currentPage = window.location.pathname.split('/').pop();
-        document.querySelectorAll('.nav-link').forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href').includes(currentPage)) {
-            link.classList.add('active');
-          }
-        });
-
-        // Animation for service cards
-        gsap.from(".service-card", {
-          duration: 0.8,
-          y: 50,
-          opacity: 0,
-          stagger: 0.1,
-          ease: "power2.out",
-          delay: 0.3
-        });
-      });
-    </script> -->
-  </body>
 </html>
