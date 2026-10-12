@@ -170,62 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function setupPageNavigation() {
-    // Get the current hash or default to home
-    const currentHash = window.location.hash || "#home";
-    
-    // Activate the correct container based on hash
-    pageContainers.forEach(container => {
-      const containerId = container.id;
-      const targetHash = `#${containerId.replace('-container', '')}`;
-      
-      if (targetHash === currentHash) {
-        container.classList.add('active');
-      } else {
-        container.classList.remove('active');
-      }
-    });
-    
-    // Handle navigation clicks
-    navLinks.forEach(link => {
-      link.addEventListener("click", function(e) {
-        e.preventDefault();
-        const target = this.getAttribute("href");
-        
-        // Start transition animation
-        document.body.classList.add("transitioning");
-        
-        gsap.to(".page-transition", {
-          height: "100%", 
-          duration: 0.5,
-          ease: "hop",
-          onComplete: () => {
-            // Hide all containers
-            pageContainers.forEach(container => {
-              container.classList.remove('active');
-            });
-            
-            // Show target container
-            const targetContainer = document.getElementById(`${target.replace('#', '')}-container`);
-            if (targetContainer) {
-              targetContainer.classList.add('active');
-            }
-            
-            // Update URL hash
-            window.location.hash = target;
-            
-            // Reverse transition animation
-            gsap.to(".page-transition", {
-              height: "0%", 
-              duration: 0.5,
-              ease: "hop",
-              onComplete: () => {
-                document.body.classList.remove("transitioning");
-              }
-            });
-          }
-        });
-      });
-    });
+    // Navigation is handled by /public/transition.js (shared across all pages)
+    // which attaches a single click handler to all nav links for smooth transitions.
   }
 
   function init() {
