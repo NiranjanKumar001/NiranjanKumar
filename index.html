@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./public/styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <title>Niranjan Kumar</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
@@ -113,34 +113,7 @@
 
     <div class="page-transition"></div>
 
+    <script src="/transition.js"></script>
     <script type="module" src="/script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const navLinks = document.querySelectorAll("nav a");
-        
-        // Handle outgoing transitions (link clicks)
-        navLinks.forEach(link => {
-          link.addEventListener("click", function(e) {
-            const target = this.getAttribute("href");
-            
-            // Only apply transition for actual page links, not hash links
-            // if (!target || target === "" || target.startsWith("#")) return;
-            
-            e.preventDefault();
-            document.body.classList.add("transitioning");
-            
-            // Animate transition up
-            gsap.to(".page-transition", {
-              height: "100%", 
-              duration: 0.5,
-              ease: "power2.out",
-              onComplete: () => {
-                window.location.href = target;
-              }
-            });
-          });
-        });
-      });
-    </script>
   </body>
 </html>
