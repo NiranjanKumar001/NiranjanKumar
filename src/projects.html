@@ -1,394 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects - Niranjan Kumar</title>
-  <link rel="stylesheet" href="/public/projects.css">
-  <!-- GSAP -->
+  <title>Projects — Niranjan Kumar</title>
+  <meta name="description" content="Selected works by Niranjan Kumar — full-stack web applications, creative projects and more.">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
-    /* Navigation specific styles */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      padding: 1em;
-      display: flex;
-      gap: 2em;
-      z-index: 100;
-      background-color: transparent;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #0a0a0a;
+      color: #e3e3db;
+      font-family: "PP Neue Montreal", sans-serif;
+      overflow-x: hidden;
     }
 
-    .nav-logo {
-      flex: 1 1 100%;
-      text-align: center;
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; padding: 1.2em 2em;
+      display: flex; gap: 2em; z-index: 200;
     }
-
+    nav > * { flex: 1; }
+    .links { display: flex; justify-content: space-around; align-items: center; }
+    .nav-logo { text-align: center; display: flex; justify-content: center; }
     .nav-logo a {
       font-family: "Druk", sans-serif;
-      font-size: 1.75rem;
-      font-weight: bolder;
+      font-size: 1.75rem; font-weight: bolder;
+      font-style: italic; line-height: 0.9;
+      color: #e3e3db; text-decoration: none;
+    }
+    a { text-decoration: none; text-transform: uppercase; font-family: "Akkurat Mono", monospace; font-size: 0.7rem; color: #e3e3db; }
+    .nav-icon { display: none; }
+
+    /* ─── HERO ─── */
+    .hero {
+      height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 2em 2em 5em;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg-word {
+      position: absolute;
+      bottom: -0.1em; left: -0.05em;
+      font-family: "Druk", sans-serif;
       font-style: italic;
-      line-height: 0.9;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .nav-link {
-      color: #fff;
-      text-decoration: none;
-      font-family: "Akkurat Mono", monospace;
-      font-size: 0.7rem;
+      font-size: 28vw;
       text-transform: uppercase;
-      transition: color 0.3s ease;
+      color: rgba(227,227,219,0.025);
+      line-height: 1; pointer-events: none;
+      z-index: 0; white-space: nowrap;
     }
 
-    .nav-link:hover {
-      color: #ff6b00;
+    .hero-eyebrow {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: #555;
+      margin-bottom: 1.5em;
+      position: relative; z-index: 2;
     }
 
-    .nav-link.active {
-      color: #ff6b00;
+    .hero-heading {
+      font-family: "Druk", sans-serif;
+      font-size: clamp(4.5rem, 13vw, 16rem);
+      font-style: italic; text-transform: uppercase;
+      line-height: 0.82; letter-spacing: -0.01em;
+      color: #e3e3db; position: relative; z-index: 2;
+    }
+    .hero-heading span { display: block; overflow: hidden; }
+    .hero-heading span em { display: block; font-style: italic; }
+
+    .hero-bottom {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-top: 3em;
+      padding-top: 2em;
+      border-top: 1px solid rgba(227,227,219,0.1);
+      position: relative; z-index: 2;
+    }
+    .hero-count {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #555;
+    }
+    .hero-scroll-hint {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: #444;
+      display: flex; align-items: center; gap: 0.75em;
+    }
+    .hero-scroll-hint::after {
+      content: ''; display: block;
+      width: 30px; height: 1px; background: #444;
     }
 
-    .nav-link .nav-icon {
-      display: none;
+    /* ─── PROJECTS TABLE ─── */
+    .projects-section { background: #0a0a0a; }
+
+    .projects-table-header {
+      display: grid;
+      grid-template-columns: 60px 2fr 1fr 1fr 100px;
+      gap: 2em;
+      padding: 1.5em 2em;
+      border-bottom: 1px solid rgba(227,227,219,0.08);
+      border-top: 1px solid rgba(227,227,219,0.08);
     }
-    .nav-link .nav-text {
-      display: inline;
+    .table-col-label {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #444;
     }
 
-    .nav > * {
-      flex: 1;
+    .project-row {
+      display: grid;
+      grid-template-columns: 60px 2fr 1fr 1fr 100px;
+      gap: 2em;
+      padding: 2.5em 2em;
+      border-bottom: 1px solid rgba(227,227,219,0.06);
+      align-items: center;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease;
+    }
+    .project-row::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(227,227,219,0.03);
+      transform: translateX(-100%);
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .project-row:hover::before { transform: translateX(0); }
+
+    /* Hover image preview */
+    .project-row:hover .preview { opacity: 1; pointer-events: none; }
+
+    .preview {
+      position: fixed;
+      width: 240px; height: 300px;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 50;
+      filter: grayscale(0.2);
     }
 
-    .links {
-      display: flex;
-      justify-content: space-around;
+    .row-num {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.2em;
+      color: #444; position: relative; z-index: 2;
+    }
+
+    .row-name {
+      font-family: "Druk", sans-serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.8rem);
+      text-transform: uppercase; line-height: 0.9;
+      color: #e3e3db; position: relative; z-index: 2;
+      transition: transform 0.4s ease;
+    }
+    .project-row:hover .row-name { transform: translateX(0.4em); }
+
+    .row-director, .row-location {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #555;
+      position: relative; z-index: 2;
+    }
+
+    .row-tag {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #333;
+      border: 1px solid rgba(227,227,219,0.1);
+      padding: 0.3em 0.7em;
+      justify-self: end;
+      position: relative; z-index: 2;
+    }
+
+    /* ─── FEATURED PROJECT ─── */
+    .featured-section {
+      padding: 8em 2em;
+      background: #0f0f0f;
+      border-top: 1px solid rgba(227,227,219,0.08);
+    }
+    .featured-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 4em;
+      padding-bottom: 2em;
+      border-bottom: 1px solid rgba(227,227,219,0.08);
+    }
+    .feat-label {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: #555;
+    }
+    .feat-title {
+      font-family: "Druk", sans-serif;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 4rem);
+      text-transform: uppercase; color: #e3e3db;
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4em; align-items: center;
+    }
+    .feat-img {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      position: relative;
+      border-radius: 6px;
+      border: 1px solid rgba(227,227,219,0.12);
+    }
+    .feat-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .feat-img:hover img { transform: scale(1.03); }
+    .feat-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,15,15,0.4) 0%, transparent 60%);
+    }
+
+    .feat-content { display: flex; flex-direction: column; gap: 2em; }
+    .feat-num {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #555;
+    }
+    .feat-name {
+      font-family: "Druk", sans-serif;
+      font-style: italic;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      text-transform: uppercase; line-height: 0.85;
+      color: #e3e3db;
+    }
+    .feat-desc {
+      font-family: "PP Neue Montreal", sans-serif;
+      font-size: 0.9rem; line-height: 1.8;
+      color: #666; text-transform: none;
+      max-width: 400px;
+    }
+    .feat-meta {
+      display: flex; flex-direction: column;
+      gap: 1em;
+      padding-top: 1.5em;
+      border-top: 1px solid rgba(227,227,219,0.08);
+    }
+    .feat-detail {
+      display: flex; justify-content: space-between;
       align-items: center;
     }
+    .feat-detail-key {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.55rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: #444;
+    }
+    .feat-detail-val {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #e3e3db;
+    }
+    .feat-link {
+      display: inline-block; margin-top: 1em;
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: #e3e3db;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(227,227,219,0.3);
+      padding-bottom: 3px;
+      transition: border-color 0.3s;
+    }
+    .feat-link:hover { border-color: #e3e3db; }
 
-    @media (max-width: 600px) {
-      .nav-link .nav-text {
-        display: none;
-      }
-      .nav-link .nav-icon {
-        display: inline-block;
-        color: #fff;
-      }
-      .links {
-        justify-content: center;
-        gap: 1.5em;
-      }
-      .nav-logo {
-        flex: 1 1 100%;
-        text-align: center;
-      }
-      .nav {
-        gap: 0;
-      }
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 10em 2em;
+      background: #0a0a0a;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      gap: 2.5em;
+      border-top: 1px solid rgba(227,227,219,0.08);
+    }
+    .cta-label {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: #555;
+    }
+    .cta-heading {
+      font-family: "Druk", sans-serif;
+      font-style: italic;
+      font-size: clamp(3rem, 9vw, 10rem);
+      text-transform: uppercase; line-height: 0.85;
+      color: #e3e3db;
+    }
+    .cta-link {
+      display: inline-block;
+      background: #e3e3db; color: #0a0a0a;
+      padding: 1.2em 3.5em;
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .cta-link:hover { background: #fff; color: #000; transform: translateY(-2px); }
+
+    /* ─── PAGE TRANSITION ─── */
+    .page-transition {
+      position: fixed; bottom: 0; left: 0;
+      width: 100%; height: 0;
+      background: #0a0a0a; z-index: 9999;
+    }
+
+    /* ─── CURSOR IMAGE ─── */
+    #cursor-img {
+      position: fixed;
+      width: 300px; height: 190px;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 100;
+      border-radius: 8px;
+      border: 1px solid rgba(227,227,219,0.18);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.85);
+      transition: opacity 0.25s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .projects-table-header { grid-template-columns: 40px 1fr 1fr; }
+      .projects-table-header .table-col-label:nth-child(4),
+      .projects-table-header .table-col-label:nth-child(5) { display: none; }
+      .project-row { grid-template-columns: 40px 1fr 1fr; }
+      .row-location, .row-tag { display: none; }
+      .featured-card { grid-template-columns: 1fr; }
+      nav { padding: 1em; gap: 0; }
+      .nav-link .nav-text { display: none; }
+      .nav-icon { display: inline-block; vertical-align: middle; }
+      .links { justify-content: center; gap: 1.5em; }
+      .nav-logo { flex: 1 1 100%; }
+      #cursor-img { display: none; }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <nav class="nav">
-      <div class="links">
-        <a href="/src/services.html" class="nav-link nav-services">
-          <span class="nav-text">Services</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/></svg>
-          </span>
-        </a>
-        <a href="/src/projects.html" class="nav-link nav-projects active">
-          <span class="nav-text">Projects</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 7 12 12 2 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </span>
-        </a>
-      </div>
-      <div class="nav-logo">
-        <a href="/index.html">NIRANJAN<br />KUMAR</a>
-      </div>
-      <div class="links">
-        <a href="/src/about.html" class="nav-link nav-about">
-          <span class="nav-text">About</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg>
-          </span>
-        </a>
-        <a href="/src/contact.html" class="nav-link nav-contact">
-          <span class="nav-text">Contact</span>
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg>
-          </span>
-        </a>
-      </div>
-    </nav>
 
-    <section class="hero">
-      <h1>
-        <span>Enter a Universe</span>
-        Powered by Imagination and Creativity
-      </h1>
-    </section>
-    <section class="sticky">
-      <div class="bg-img">
-        <img src="/public/img18.jpg" alt="" />
-      </div>
-      <canvas class="outline-layer"></canvas>
+  <!-- Cursor image follower -->
+  <img id="cursor-img" src="" alt="">
 
-      <div class="cards">
-        <div class="card">
-          <div class="card-img"><img src="/public/p1.png" alt="" /></div>
-          <div class="card-title">
-            <h1>Fabrion</h1>
-            <p>Website Builder</p>
+  <!-- NAV -->
+  <nav>
+    <div class="links">
+      <a href="/src/services.html" class="nav-link">
+        <span class="nav-text">Services</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/></svg></span>
+      </a>
+      <a href="/src/projects.html" class="nav-link">
+        <span class="nav-text">Projects</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 7 12 12 2 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+      </a>
+    </div>
+    <div class="nav-logo"><a href="/index.html">NIRANJAN<br>KUMAR</a></div>
+    <div class="links">
+      <a href="/src/about.html" class="nav-link">
+        <span class="nav-text">About</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg></span>
+      </a>
+      <a href="/src/contact.html" class="nav-link">
+        <span class="nav-text">Contact</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-word">Work</div>
+    <p class="hero-eyebrow" id="proj-eyebrow">— Selected Projects</p>
+    <h1 class="hero-heading">
+      <span><em id="ph1">Projects</em></span>
+      <span><em id="ph2">That Ship</em></span>
+    </h1>
+    <div class="hero-bottom">
+    <span class="hero-count" id="proj-count">07 Projects</span>
+      <span class="hero-scroll-hint">Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS TABLE -->
+  <section class="projects-section">
+    <div class="projects-table-header">
+      <span class="table-col-label">No.</span>
+      <span class="table-col-label">Project</span>
+      <span class="table-col-label">Type</span>
+      <span class="table-col-label">Stack</span>
+      <span class="table-col-label" style="text-align:right">Category</span>
+    </div>
+    <div id="projects-list"></div>
+  </section>
+
+  <!-- FEATURED PROJECT -->
+  <section class="featured-section">
+    <div class="featured-header">
+      <span class="feat-label">— Highlight</span>
+      <h2 class="feat-title">Featured Work</h2>
+    </div>
+    <div class="featured-card">
+      <div class="feat-img">
+        <a href="https://profile-elegante.vercel.app/" target="_blank" style="display:block;width:100%;height:100%;">
+          <img src="/profocto.png" alt="Profocto — Profile Élegante">
+          <div class="feat-img-overlay"></div>
+        </a>
+      </div>
+      <div class="feat-content">
+        <span class="feat-num">Featured — 01</span>
+        <h3 class="feat-name">Profocto</h3>
+        <p class="feat-desc">Profile &Eacute;legante &mdash; An AI-powered portfolio and resume generator with intelligent formatting, dynamic themes, real-time live preview, and instant export capabilities. Designed to elevate professional profiles with clean typography and modern aesthetics.</p>
+        <div class="feat-meta">
+          <div class="feat-detail">
+            <span class="feat-detail-key">Stack</span>
+            <span class="feat-detail-val">React &middot; Node.js &middot; MongoDB &middot; LLM / AI &middot; Tailwind CSS</span>
+          </div>
+          <div class="feat-detail">
+            <span class="feat-detail-key">Live Demo</span>
+            <span class="feat-detail-val">profile-elegante.vercel.app</span>
+          </div>
+          <div class="feat-detail">
+            <span class="feat-detail-key">Source</span>
+            <span class="feat-detail-val">GitHub &middot; NiranjanKumar001/Profocto</span>
           </div>
         </div>
-        <div class="card">
-          <div class="card-img"><img src="/public/p2.png" alt="" /></div>
-          <div class="card-title">
-            <h1>Go Prakritik</h1>
-            <p>E-Commerce Website</p>
-          </div>
+        <div style="display:flex;gap:1.5em;margin-top:0.5em;padding-top:1.5em;border-top:1px solid rgba(227,227,219,0.08);align-items:center;">
+          <a href="https://profile-elegante.vercel.app/" target="_blank" class="feat-link" style="display:inline-flex;align-items:center;gap:0.4em;padding:0.75em 1.5em;background:#e3e3db;color:#0e0e0e;border-radius:999px;font-weight:600;font-size:0.85rem;text-decoration:none;">Live Website ↗</a>
+          <a href="https://github.com/NiranjanKumar001/Profocto" target="_blank" class="feat-link" style="color:#e3e3db;font-size:0.85rem;text-decoration:none;border-bottom:1px solid rgba(227,227,219,0.4);padding-bottom:2px;">GitHub Repository ↗</a>
         </div>
-        <div class="card">
-          <div class="card-img"><img src="/public/p3.png" alt="" /></div>
-          <div class="card-title">
-            <h1>Cre-Avant</h1>
-            <p>STARTUP Pitch Website</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-img"><img src="/public/p4.png" alt="" /></div>
-          <div class="card-title">
-            <h1>Iphone 16 Pro</h1>
-            <p>First Clone</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-img"><img src="/public/p5.png" alt="" /></div>
-          <div class="card-title">
-            <h1>TechNexus</h1>
-            <p>Hackathon Finder</p>
-          </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6em 2em;margin-top:1em;padding-top:1.5em;border-top:1px solid rgba(227,227,219,0.08);">
+          <a href="https://profile-elegante.vercel.app/" target="_blank" class="feat-link">Profocto (Live) ↗</a>
+          <a href="https://cre-avant.vercel.app/" target="_blank" class="feat-link">Creavant (Live) ↗</a>
+          <a href="https://i-phone-16-pro.vercel.app/" target="_blank" class="feat-link">iPhone 16 Pro (Live) ↗</a>
+          <a href="https://formester.com/" target="_blank" class="feat-link">Formester (Live) ↗</a>
+          <a href="https://github.com/NiranjanKumar001" target="_blank" class="feat-link">Problex ↗</a>
+          <a href="https://github.com/NiranjanKumar001" target="_blank" class="feat-link">LOGILE ↗</a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <canvas class="fill-layer"></canvas>
-    </section>
-    <section class="outro">
-      <h1> chase the <span>shadows</span> to embrace the light</h1>
-    </section>
-  </div>
+  <!-- CTA -->
+  <section class="cta-section">
+    <p class="cta-label">Like what you see?</p>
+    <h2 class="cta-heading">Start a<br>Project</h2>
+    <a href="/src/contact.html" class="cta-link">Get in Touch</a>
+  </section>
+
+  <div class="page-transition"></div>
+  <script src="/transition.js"></script>
 
   <script>
+    const projectsData = [
+      {
+        name: "Profocto",
+        director: "Profile Élegante · Resume Builder",
+        location: "React · Node.js · MongoDB · LLM",
+        img: "/profocto.png",
+        type: "AI / SaaS",
+        link: "https://profile-elegante.vercel.app/"
+      },
+      {
+        name: "Creavant",
+        director: "Creative Platform",
+        location: "Next.js · GSAP · Tailwind CSS",
+        img: "/creavant.png",
+        type: "Platform",
+        link: "https://cre-avant.vercel.app/"
+      },
+      {
+        name: "iPhone 16 Pro",
+        director: "Apple Site 3D Clone",
+        location: "React · GSAP · Three.js",
+        img: "/iphone.png",
+        type: "Clone / 3D",
+        link: "https://i-phone-16-pro.vercel.app/"
+      },
+      {
+        name: "Formester",
+        director: "No-Code Form Builder · Acturn Globals",
+        location: "Vue.js · Ruby on Rails · PostgreSQL",
+        img: "/formester.png",
+        type: "SaaS",
+        link: "https://formester.com/"
+      },
+      {
+        name: "Problex",
+        director: "Resume Builder",
+        location: "Next.js · TypeScript · Convex.dev",
+        img: "/p1.png",
+        type: "SaaS",
+        link: "https://github.com/NiranjanKumar001"
+      },
+      {
+        name: "LOGILE",
+        director: "Log Intelligence Engine",
+        location: "Node.js · TypeScript · REST API",
+        img: "/p2.png",
+        type: "DevTool",
+        link: "https://github.com/NiranjanKumar001"
+      },
+      {
+        name: "Go Prakritik",
+        director: "E-Commerce Platform",
+        location: "Node.js · Express · Razorpay",
+        img: "/img4.jpg",
+        type: "E-Commerce",
+        link: "https://github.com/NiranjanKumar001"
+      },
+    ];
+
+    const list = document.getElementById("projects-list");
+    const cursorImg = document.getElementById("cursor-img");
+
+    projectsData.forEach((p, i) => {
+      const row = document.createElement("div");
+      row.className = "project-row";
+      row.style.cursor = "pointer";
+      row.innerHTML = `
+        <span class="row-num">${String(i + 1).padStart(2, "0")}</span>
+        <span class="row-name">${p.name}</span>
+        <span class="row-director">${p.director}</span>
+        <span class="row-location">${p.location}</span>
+        <span class="row-tag">${p.type} ↗</span>
+      `;
+
+      // Click opens the project link
+      row.addEventListener("click", () => {
+        window.open(p.link, "_blank");
+      });
+
+      row.addEventListener("mouseenter", () => {
+        cursorImg.src = p.img;
+        cursorImg.style.opacity = "1";
+      });
+      row.addEventListener("mouseleave", () => {
+        cursorImg.style.opacity = "0";
+      });
+
+      list.appendChild(row);
+    });
+
+    // Cursor follower
+    window.addEventListener("mousemove", (e) => {
+      gsap.to(cursorImg, {
+        x: e.clientX, y: e.clientY,
+        duration: 0.4, ease: "power2.out"
+      });
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
-      // Register the ScrollTrigger plugin
       gsap.registerPlugin(ScrollTrigger);
 
-      // Create a simple smooth scroll implementation (no Lenis dependency)
-      let currentScroll = window.scrollY;
-      let targetScroll = window.scrollY;
-      let scrollEase = 0.1;
-      
-      // Simple smooth scroll logic
-      function smoothScroll() {
-        currentScroll = currentScroll + (targetScroll - currentScroll) * scrollEase;
-        
-        // Trigger ScrollTrigger update
-        ScrollTrigger.update();
-        
-        // Request next frame
-        requestAnimationFrame(smoothScroll);
-      }
-      
-      // Start smooth scroll animation
-      smoothScroll();
-      
-      // Update targetScroll on window scroll
-      window.addEventListener('scroll', () => {
-        targetScroll = window.scrollY;
+      // Hero
+      gsap.from(["#ph1", "#ph2"], {
+        y: "110%", duration: 1.2,
+        stagger: 0.1, ease: "power3.out", delay: 0.2
+      });
+      gsap.from(["#proj-eyebrow", "#proj-count"], {
+        opacity: 0, y: 15, duration: 0.8,
+        stagger: 0.1, ease: "power2.out", delay: 0.3
+      });
+      gsap.from(".hero-scroll-hint", { opacity: 0, duration: 0.8, delay: 1 });
+
+      // Table rows stagger
+      gsap.from(".project-row", {
+        scrollTrigger: { trigger: ".projects-section", start: "top 85%" },
+        y: 30, opacity: 0, duration: 0.6,
+        stagger: 0.05, ease: "power2.out"
       });
 
-      const stickySection = document.querySelector(".sticky");
-      const stickyHeight = window.innerHeight * 5;
-      const outlineCanvas = document.querySelector(".outline-layer");
-      const fillCanvas = document.querySelector(".fill-layer");
-      const outlineCtx = outlineCanvas.getContext("2d");
-      const fillCtx = fillCanvas.getContext("2d");
-
-      function setCanvasSize(canvas, ctx) {
-        const dpr = window.devicePixelRatio || 1;
-        canvas.width = 0.3*window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        canvas.style.width = `${window.innerWidth}px`;
-        canvas.style.height = `${window.innerHeight}px`;
-        ctx.scale(dpr, dpr);
-      }
-
-      setCanvasSize(outlineCanvas, outlineCtx);
-      setCanvasSize(fillCanvas, fillCtx);
-
-      const triangleSize = 50;
-      const lineWidth = 1;
-      const SCALE_THRESHOLD = 0.01;
-      let triangleStates = [];
-      let animationFrameId = null;
-      let canvasXPosition = 0;
-
-      function drawTriangle(ctx, x, y, fillScale = 0, flipped = false) {
-        const halfSize = triangleSize / 2;
-
-        // Draw outline triangle
-        if (fillScale < SCALE_THRESHOLD) {
-          ctx.beginPath();
-          if (!flipped) {
-            ctx.moveTo(x, y - halfSize);
-            ctx.lineTo(x + halfSize, y + halfSize);
-            ctx.lineTo(x - halfSize, y + halfSize);
-          } else {
-            ctx.moveTo(x, y + halfSize);
-            ctx.lineTo(x + halfSize, y - halfSize);
-            ctx.lineTo(x - halfSize, y - halfSize);
-          }
-          ctx.closePath();
-          ctx.strokeStyle = "rgba(255, 255, 255, 0.075)";
-          ctx.lineWidth = lineWidth;
-          ctx.stroke();
-        }
-
-        // Draw filled triangle
-        if (fillScale >= SCALE_THRESHOLD) {
-          ctx.save();
-          ctx.translate(x, y);
-          ctx.scale(fillScale, fillScale);
-          ctx.translate(-x, -y);
-
-          ctx.beginPath();
-          if (!flipped) {
-            ctx.moveTo(x, y - halfSize);
-            ctx.lineTo(x + halfSize, y + halfSize);
-            ctx.lineTo(x - halfSize, y + halfSize);
-          } else {
-            ctx.moveTo(x, y + halfSize);
-            ctx.lineTo(x + halfSize, y - halfSize);
-            ctx.lineTo(x - halfSize, y - halfSize);
-          }
-          ctx.closePath();
-          ctx.fillStyle = "#ff6b00";
-          ctx.strokeStyle = "#ff6b00";
-          ctx.lineWidth = lineWidth;
-          ctx.stroke();
-          ctx.fill();
-          ctx.restore();
-        }
-      }
-
-      function drawGrid(scrollProgress = 0) {
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-        }
-        outlineCtx.clearRect(0, 0, outlineCanvas.width, outlineCanvas.height);
-        fillCtx.clearRect(0, 0, fillCanvas.width, fillCanvas.height);
-
-        const animationProgress = scrollProgress <= 0.65 ? 0 : (scrollProgress - 0.65) / 0.35;
-
-        let needsUpdate = false;
-        const animationSpeed = 0.15;
-
-        // Draw outline triangles
-        triangleStates.forEach((state) => {
-          if (state.scale < 1) {
-            const x = state.col * (triangleSize * 0.5) + triangleSize / 2 + canvasXPosition;
-            const y = state.row * triangleSize + triangleSize / 2;
-            const flipped = (state.row + state.col) % 2 !== 0;
-            drawTriangle(outlineCtx, x, y, 0, flipped);
-          }
-        });
-
-        // Draw filled triangles with animation
-        triangleStates.forEach((state) => {
-          const shouldBeVisible = state.order / triangleStates.length <= animationProgress;
-          const targetScale = shouldBeVisible ? 1 : 0;
-          const newScale = state.scale + (targetScale - state.scale) * animationSpeed;
-
-          if (Math.abs(newScale - state.scale) > 0.001) {
-            state.scale = newScale;
-            needsUpdate = true;
-          }
-
-          if (state.scale >= SCALE_THRESHOLD) {
-            const x = state.col * (triangleSize * 0.5) + triangleSize / 2 + canvasXPosition;
-            const y = state.row * triangleSize + triangleSize / 2;
-            const flipped = (state.row + state.col) % 2 !== 0;
-            drawTriangle(fillCtx, x, y, state.scale, flipped);
-          }
-        });
-
-        if (needsUpdate) {
-          animationFrameId = requestAnimationFrame(() => drawGrid(scrollProgress));
-        }
-      }
-
-      function initializeTriangles() {
-        const cols = Math.floor(window.innerWidth / triangleSize) + 1;
-        const rows = Math.floor(window.innerHeight / triangleSize) * 2;
-
-        // Create all possible positions
-        let positions = [];
-        for (let row = 0; row < rows; row++) {
-          for (let col = 0; col < cols; col++) {
-            positions.push({ row, col });
-          }
-        }
-
-        // Shuffle positions array
-        for (let i = positions.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [positions[i], positions[j]] = [positions[j], positions[i]];
-        }
-
-        // Create triangle states
-        triangleStates = positions.map((pos, index) => ({
-          row: pos.row,
-          col: pos.col,
-          scale: 0,
-          order: index
-        }));
-      }
-
-      // Initialize and draw on load
-      initializeTriangles();
-      drawGrid();
-
-      // Handle window resize
-      window.addEventListener("resize", () => {
-        initializeTriangles();
-        drawGrid();
+      // Featured
+      gsap.from(".feat-img", {
+        scrollTrigger: { trigger: ".featured-card", start: "top 75%" },
+        scale: 0.95, opacity: 0, duration: 1.2, ease: "power3.out"
+      });
+      gsap.from(".feat-content > *", {
+        scrollTrigger: { trigger: ".featured-card", start: "top 75%" },
+        y: 30, opacity: 0, duration: 0.8,
+        stagger: 0.1, delay: 0.2, ease: "power2.out"
       });
 
-      ScrollTrigger.create({
-        trigger: stickySection,
-        start: "top top",
-        end: `+=${stickyHeight}px`,
-        pin: true,
-        onUpdate: (self) => {
-          canvasXPosition = -self.progress * 200;
-          drawGrid(self.progress);
-
-          const cards = document.querySelector(".cards");
-          const progress = Math.min(self.progress / 0.654, 1);
-          gsap.set(cards, {
-            x: -progress * window.innerWidth * 2,
-          });
-        },
+      // CTA
+      gsap.from(".cta-heading", {
+        scrollTrigger: { trigger: ".cta-section", start: "top 75%" },
+        y: 60, opacity: 0, duration: 1.2, ease: "power3.out"
       });
     });
   </script>
