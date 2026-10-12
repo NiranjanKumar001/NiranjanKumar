@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/about", "destination": "/src/about.html" },
+    { "source": "/projects", "destination": "/src/projects.html" },
+    { "source": "/services", "destination": "/src/services.html" },
+    { "source": "/contact", "destination": "/src/contact.html" }
+  ]
+}
