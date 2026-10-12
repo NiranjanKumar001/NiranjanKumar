@@ -343,8 +343,8 @@ document.addEventListener("DOMContentLoaded", () => {
     imagesTimeline.to(
       ".banner-img-1",
       {
-        left: "40%",
-        rotate: -20,
+        left: window.innerWidth <= 900 ? "28%" : "40%",
+        rotate: window.innerWidth <= 900 ? -14 : -20,
         duration: 1.5,
         delay: 0.5,
         ease: "hop",
@@ -355,8 +355,8 @@ document.addEventListener("DOMContentLoaded", () => {
     imagesTimeline.to(
       ".banner-img-2",
       {
-        left: "60%",
-        rotate: 20,
+        left: window.innerWidth <= 900 ? "72%" : "60%",
+        rotate: window.innerWidth <= 900 ? 14 : 20,
         duration: 1.5,
         ease: "hop",
       },
