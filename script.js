@@ -426,6 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
         onComplete: () => {
           // Start the image sequence for all banner images
           startBannerImageSequence();
+          init3DParallaxAndFloat();
         }
       },
       "<0.1"
@@ -502,6 +503,137 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       "<"
     );
+  }
+
+  function init3DParallaxAndFloat() {
+    const isMobile = window.innerWidth <= 900;
+
+    // Set 3D perspective on cards for depth
+    gsap.set([".image-grid", ".banner-img"], { transformPerspective: 1200 });
+
+    if (isMobile) {
+      // Mobile: gentle organic floating physics that don't shift layout
+      gsap.to(".banner-img-1", {
+        y: "+=6",
+        rotation: "+=1.2",
+        duration: 3.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+      gsap.to(".banner-img-2", {
+        y: "+=6",
+        rotation: "-=1.2",
+        duration: 3.6,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+      gsap.to(".hero-img", {
+        y: "-=5",
+        duration: 2.8,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+      return;
+    }
+
+    // Desktop: Interactive 3D Cursor Parallax
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    const onMouseMove = (e) => {
+      // Normalized from -1 to 1 around screen center
+      targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+
+    // Ensure title has proper center anchor for parallax
+    gsap.set(".title", { xPercent: -50 });
+
+    // GSAP Ticker for smooth 60fps lerping
+    gsap.ticker.add(() => {
+      currentX += (targetX - currentX) * 0.06;
+      currentY += (targetY - currentY) * 0.06;
+
+      // Center Hero Image: 3D tilt and subtle translation
+      gsap.set(".hero-img", {
+        x: currentX * 22,
+        y: -50 + currentY * 16,
+        rotationY: currentX * 7,
+        rotationX: -currentY * 7,
+      });
+
+      // Left Banner Card: parallax response
+      gsap.set(".banner-img-1", {
+        x: currentX * 32,
+        y: currentY * 22,
+        rotationY: currentX * 8,
+        rotationX: -currentY * 6,
+      });
+
+      // Right Banner Card: parallax response
+      gsap.set(".banner-img-2", {
+        x: currentX * 32,
+        y: currentY * 22,
+        rotationY: currentX * 8,
+        rotationX: -currentY * 6,
+      });
+
+      // Outer banner cards (3-6) on desktop have deeper multi-plane parallax
+      gsap.set(".banner-img-3", {
+        x: currentX * 42,
+        y: currentY * 28,
+      });
+      gsap.set(".banner-img-4", {
+        x: currentX * 42,
+        y: currentY * 28,
+      });
+      gsap.set(".banner-img-5", {
+        x: currentX * 50,
+        y: currentY * 34,
+      });
+      gsap.set(".banner-img-6", {
+        x: currentX * 50,
+        y: currentY * 34,
+      });
+
+      // Headline subtle counter-movement
+      gsap.set(".title", {
+        x: -currentX * 12,
+        y: -currentY * 8,
+      });
+    });
+
+    // Idle organic float layered on top of cards
+    gsap.to(".banner-img-1", {
+      y: "+=8",
+      rotation: "+=1.5",
+      duration: 3.4,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+    gsap.to(".banner-img-2", {
+      y: "+=8",
+      rotation: "-=1.5",
+      duration: 3.7,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+    gsap.to(".hero-img", {
+      y: "-=6",
+      duration: 3.0,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
   }
 
   if(window.innerWidth > 900) {
