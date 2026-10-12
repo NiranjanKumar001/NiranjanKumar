@@ -3,298 +3,781 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Niranjan Kumar | Full Stack Developer</title>
-  <link rel="stylesheet" href="../public/styles.css">
-  <link rel="stylesheet" href="../public/about.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>About — Niranjan Kumar</title>
+  <meta name="description" content="Niranjan Kumar — Software Developer & AI Engineer building full-stack products with Next.js, Node.js, Ruby on Rails, and LLM integrations.">
+  <link rel="stylesheet" href="/styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #0a0a0a;
+      color: #e3e3db;
+      font-family: "PP Neue Montreal", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      padding: 1.2em 2em;
+      display: flex;
+      gap: 2em;
+      z-index: 100;
+      mix-blend-mode: difference;
+    }
+    nav > * { flex: 1; }
+    .links { display: flex; justify-content: space-around; align-items: center; }
+    .nav-logo { text-align: center; display: flex; justify-content: center; }
+    .nav-logo a {
+      font-family: "Druk", sans-serif;
+      font-size: 1.75rem;
+      font-weight: bolder;
+      font-style: italic;
+      line-height: 0.9;
+      color: #e3e3db;
+      text-decoration: none;
+    }
+    a { text-decoration: none; text-transform: uppercase; font-family: "Akkurat Mono", monospace; font-size: 0.7rem; color: #e3e3db; }
+    .nav-icon { display: none; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 2em 4em;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.35) grayscale(0.3);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, #0a0a0a 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+    }
+
+    .hero-eyebrow {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #888;
+      margin-bottom: 0.5em;
+    }
+
+    .hero-title {
+      font-family: "Druk", sans-serif;
+      font-size: clamp(5rem, 12vw, 14rem);
+      font-style: italic;
+      line-height: 0.85;
+      text-transform: uppercase;
+      color: #e3e3db;
+      overflow: hidden;
+    }
+    .hero-title span { display: block; }
+
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 2em;
+      padding-top: 1.5em;
+      border-top: 1px solid rgba(227,227,219,0.15);
+    }
+
+    .hero-desc {
+      max-width: 420px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #999;
+    }
+
+    .hero-scroll {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 0.75em;
+    }
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: #555;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-section {
+      padding: 2em 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(227,227,219,0.08);
+      border-bottom: 1px solid rgba(227,227,219,0.08);
+      background: #0a0a0a;
+    }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-item {
+      flex-shrink: 0;
+      padding: 0 2em;
+      font-family: "Druk", sans-serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: rgba(227,227,219,0.2);
+      display: flex;
+      align-items: center;
+      gap: 2em;
+    }
+    .marquee-item .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(227,227,219,0.3);
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTION LABELS ─── */
+    .section-label {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: #555;
+    }
+
+    /* ─── ABOUT SPLIT ─── */
+    .about-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    .about-img-col {
+      position: relative;
+      overflow: hidden;
+    }
+    .about-img-col img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.2);
+      transition: transform 0.8s ease;
+    }
+    .about-img-col:hover img { transform: scale(1.03); }
+    .about-img-overlay {
+      position: absolute;
+      bottom: 2em; left: 2em;
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(227,227,219,0.6);
+    }
+
+    .about-text-col {
+      padding: 6em 4em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3em;
+      background: #0a0a0a;
+    }
+
+    .about-heading {
+      font-family: "Druk", sans-serif;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-style: italic;
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: #e3e3db;
+    }
+
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+    }
+    .about-body p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #777;
+      text-transform: none;
+      font-family: "PP Neue Montreal", sans-serif;
+    }
+    .about-body p em {
+      color: #e3e3db;
+      font-style: normal;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2em;
+      padding-top: 2em;
+      border-top: 1px solid rgba(227,227,219,0.1);
+    }
+    .stat { display: flex; flex-direction: column; gap: 0.4em; }
+    .stat-num {
+      font-family: "Druk", sans-serif;
+      font-size: 3rem;
+      font-style: italic;
+      line-height: 1;
+      color: #e3e3db;
+    }
+    .stat-lbl {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #555;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-section {
+      padding: 8em 2em;
+      background: #0f0f0f;
+    }
+    .skills-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4em;
+      padding-bottom: 1.5em;
+      border-bottom: 1px solid rgba(227,227,219,0.08);
+    }
+    .skills-title {
+      font-family: "Druk", sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-style: italic;
+      text-transform: uppercase;
+      color: #e3e3db;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .skill-category {
+      padding: 3em;
+      border-right: 1px solid rgba(227,227,219,0.08);
+    }
+    .skill-category:last-child { border-right: none; }
+
+    .skill-cat-label {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #555;
+      margin-bottom: 2em;
+    }
+
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 1.2em; }
+    .skill-item { display: flex; flex-direction: column; gap: 0.5em; }
+    .skill-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .skill-name {
+      font-family: "PP Neue Montreal", sans-serif;
+      font-size: 0.85rem;
+      color: #e3e3db;
+      text-transform: none;
+    }
+    .skill-pct {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      color: #555;
+    }
+    .skill-bar {
+      height: 1px;
+      background: rgba(227,227,219,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: #e3e3db;
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── EXPERIENCE ─── */
+    .exp-section {
+      padding: 8em 2em;
+      background: #0a0a0a;
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4em;
+      padding-bottom: 1.5em;
+      border-bottom: 1px solid rgba(227,227,219,0.08);
+    }
+    .exp-title {
+      font-family: "Druk", sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-style: italic;
+      text-transform: uppercase;
+      color: #e3e3db;
+    }
+
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-row {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 3em;
+      padding: 2.5em 0;
+      border-bottom: 1px solid rgba(227,227,219,0.08);
+      align-items: start;
+      cursor: default;
+      transition: background 0.3s ease;
+    }
+    .exp-row:hover { padding-left: 1em; transition: padding 0.4s ease; }
+
+    .exp-date {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: #555;
+      padding-top: 0.3em;
+    }
+    .exp-body { display: flex; flex-direction: column; gap: 0.6em; }
+    .exp-role {
+      font-family: "Druk", sans-serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      text-transform: uppercase;
+      color: #e3e3db;
+      line-height: 1;
+    }
+    .exp-company {
+      font-family: "PP Neue Montreal", sans-serif;
+      font-size: 0.8rem;
+      color: #666;
+      text-transform: none;
+    }
+    .exp-desc {
+      font-family: "PP Neue Montreal", sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #555;
+      max-width: 560px;
+      text-transform: none;
+      margin-top: 0.5em;
+    }
+    .exp-link {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .exp-link:hover { color: #e3e3db; border-color: #e3e3db; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 12em 2em;
+      text-align: center;
+      background: #0a0a0a;
+      overflow: hidden;
+      position: relative;
+    }
+    .cta-section::before {
+      content: 'CONNECT';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: "Druk", sans-serif;
+      font-style: italic;
+      font-size: 25vw;
+      text-transform: uppercase;
+      color: rgba(227,227,219,0.02);
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-label {
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 1.5em;
+    }
+    .cta-heading {
+      font-family: "Druk", sans-serif;
+      font-size: clamp(3rem, 9vw, 10rem);
+      font-style: italic;
+      text-transform: uppercase;
+      color: #e3e3db;
+      line-height: 0.85;
+      margin-bottom: 2.5em;
+    }
+    .cta-btn {
+      display: inline-block;
+      font-family: "Akkurat Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      background: #e3e3db;
+      padding: 1.2em 3em;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .cta-btn:hover { background: #fff; }
+
+    /* ─── PAGE TRANSITION ─── */
+    .page-transition {
+      position: fixed; bottom: 0; left: 0;
+      width: 100%; height: 0;
+      background: #0a0a0a;
+      z-index: 9999;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .about-split { grid-template-columns: 1fr; }
+      .about-img-col { height: 60vh; }
+      .about-text-col { padding: 4em 2em; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-category { border-right: none; border-bottom: 1px solid rgba(227,227,219,0.08); padding: 2.5em 1.5em; }
+      .exp-row { grid-template-columns: 1fr; gap: 0.75em; }
+      .exp-date { padding-top: 0; }
+      .about-stats { grid-template-columns: repeat(2,1fr); }
+      nav { padding: 1em; gap: 0; }
+      .nav-link .nav-text { display: none; }
+      .nav-icon { display: inline-block; vertical-align: middle; }
+      .links { justify-content: center; gap: 1.5em; }
+      .nav-logo { flex: 1 1 100%; }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- NAV -->
   <nav>
     <div class="links">
       <a href="/src/services.html" class="nav-link nav-services">
         <span class="nav-text">Services</span>
-        <span class="nav-icon">
-          <i class="fas fa-code"></i>
-        </span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/></svg></span>
       </a>
       <a href="/src/projects.html" class="nav-link nav-projects">
         <span class="nav-text">Projects</span>
-        <span class="nav-icon">
-          <i class="fas fa-project-diagram"></i>
-        </span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 7 12 12 2 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
       </a>
     </div>
     <div class="nav-logo">
-      <a href="/index.html">NIRANJAN<br />KUMAR</a>
+      <a href="/index.html">NIRANJAN<br>KUMAR</a>
     </div>
     <div class="links">
-      <a href="/src/about.html" class="nav-link nav-about active">
+      <a href="/src/about.html" class="nav-link nav-about">
         <span class="nav-text">About</span>
-        <span class="nav-icon">
-          <i class="fas fa-user"></i>
-        </span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M2 20c0-4 8-6 10-6s10 2 10 6"/></svg></span>
       </a>
       <a href="/src/contact.html" class="nav-link nav-contact">
         <span class="nav-text">Contact</span>
-        <span class="nav-icon">
-          <i class="fas fa-envelope"></i>
-        </span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg></span>
       </a>
     </div>
   </nav>
 
-  <main class="about-wrapper">
-    <div class="background-elements">
-      <div class="bg-circle circle-1"></div>
-      <div class="bg-circle circle-2"></div>
-      <div class="bg-circle circle-3"></div>
-      <div class="bg-grid-lines"></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="/self.png" alt="Niranjan Kumar">
     </div>
-    
-    <div class="about-container">
-      <section class="hero-section">
-        <div class="hero-content">
-          <div class="title-wrapper">
-            <h1 class="hero-title">Full Stack</h1>
-            <h1 class="hero-title">Developer</h1>
-            <div class="title-highlight"></div>
-          </div>
-          <div class="hero-image-container">
-            <div class="image-frame"></div>
-            <div class="hero-image">
-              <img src="../public/self.png" alt="Niranjan Kumar">
-            </div>
-            <div class="tech-tag tag-1">React</div>
-            <div class="tech-tag tag-2">Node.js</div>
-            <div class="tech-tag tag-3">Next.js</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="bio-section">
-        <div class="section-header">
-          <h2 class="section-title">About Me</h2>
-          <div class="title-underline"></div>
-        </div>
-        <div class="bio-content">
-          <div class="bio-text">
-            <p>Aspiring Full Stack Developer from Silicon University with experience in building modern web applications using Next.js and the MERN stack.</p>
-            <p>Skilled in developing clean, responsive UIs with React and Tailwind CSS, creating robust APIs with Node.js and Express, and managing data with MongoDB.</p>
-          </div>
-          <div class="bio-stats">
-            <div class="stat-item">
-              <div class="stat-number">10+</div>
-              <div class="stat-label">Projects</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">5</div>
-              <div class="stat-label">Technologies</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">3</div>
-              <div class="stat-label">Years Experience</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="experience-section">
-        <div class="section-header">
-          <h2 class="section-title">Experience</h2>
-          <div class="title-underline"></div>
-        </div>
-        <div class="experience-grid">
-          <div class="experience-card">
-            <div class="experience-header">
-              <div class="exp-logo"></div>
-              <div>
-                <h3>Team Freelance Full-Stack Developer</h3>
-                <p class="company">Go Prakritik</p>
-                <p class="date">April 2025 - May 2025</p>
-              </div>
-            </div>
-            <ul class="experience-details">
-              <li><span class="bullet"></span>Built a full e-commerce platform for organic products</li>
-              <li><span class="bullet"></span>Developed backend with Node.js & Express.js</li>
-              <li><span class="bullet"></span>Integrated Razorpay/Stripe for payments</li>
-            </ul>
-            <a href="https://github.com/darshan-mishra17/GoPrakritik" class="project-link" target="_blank">
-              <i class="fab fa-github"></i> View Project
-            </a>
-          </div>
-          <div class="timeline">
-            <div class="timeline-line"></div>
-            <div class="timeline-dot"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="skills-section">
-        <div class="section-header">
-          <h2 class="section-title">Skills</h2>
-          <div class="title-underline"></div>
-        </div>
-        <div class="skills-grid">
-          <div class="skill-category">
-            <div class="skill-header">
-              <i class="fas fa-laptop-code"></i>
-              <h3>Frontend</h3>
-            </div>
-            <ul class="skill-list">
-              <li>
-                <span class="skill-progress" style="width: 90%"></span>
-                <span class="skill-name">React</span>
-                <span class="skill-percent">90%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 85%"></span>
-                <span class="skill-name">Next.js</span>
-                <span class="skill-percent">85%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 95%"></span>
-                <span class="skill-name">JavaScript</span>
-                <span class="skill-percent">95%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 80%"></span>
-                <span class="skill-name">TypeScript</span>
-                <span class="skill-percent">80%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 85%"></span>
-                <span class="skill-name">Tailwind CSS</span>
-                <span class="skill-percent">85%</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div class="skill-category">
-            <div class="skill-header">
-              <i class="fas fa-server"></i>
-              <h3>Backend</h3>
-            </div>
-            <ul class="skill-list">
-              <li>
-                <span class="skill-progress" style="width: 88%"></span>
-                <span class="skill-name">Node.js</span>
-                <span class="skill-percent">88%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 85%"></span>
-                <span class="skill-name">Express.js</span>
-                <span class="skill-percent">85%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 82%"></span>
-                <span class="skill-name">MongoDB</span>
-                <span class="skill-percent">82%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 75%"></span>
-                <span class="skill-name">Sanity.io</span>
-                <span class="skill-percent">75%</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div class="skill-category">
-            <div class="skill-header">
-              <i class="fas fa-tools"></i>
-              <h3>Tools</h3>
-            </div>
-            <ul class="skill-list">
-              <li>
-                <span class="skill-progress" style="width: 90%"></span>
-                <span class="skill-name">Git/GitHub</span>
-                <span class="skill-percent">90%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 80%"></span>
-                <span class="skill-name">Figma</span>
-                <span class="skill-percent">80%</span>
-              </li>
-              <li>
-                <span class="skill-progress" style="width: 85%"></span>
-                <span class="skill-name">Vercel</span>
-                <span class="skill-percent">85%</span>
-              </li>
-            </ul>
-          </div>
-          <p>*data are dummy for design purpose</p>
-        </div>
-      </section>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Software Developer & AI Engineer — Jamshedpur, India</p>
+      <h1 class="hero-title">
+        <span class="hero-line">Niranjan</span>
+        <span class="hero-line">Kumar</span>
+      </h1>
+      <div class="hero-meta">
+        <p class="hero-desc">Building full-stack products with Next.js, Node.js & Ruby on Rails — and pushing the edge with AI/ML integrations, RAG pipelines, and LLM-powered applications.</p>
+        <span class="hero-scroll">Scroll to explore</span>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item">TypeScript <span class="dot"></span> Next.js <span class="dot"></span> React.js <span class="dot"></span> Vue.js <span class="dot"></span> Ruby on Rails <span class="dot"></span> Node.js <span class="dot"></span> PostgreSQL <span class="dot"></span> Convex.dev <span class="dot"></span> Generative AI <span class="dot"></span> RAG <span class="dot"></span> Docker <span class="dot"></span> GitHub Actions <span class="dot"></span></div>
+      <div class="marquee-item">TypeScript <span class="dot"></span> Next.js <span class="dot"></span> React.js <span class="dot"></span> Vue.js <span class="dot"></span> Ruby on Rails <span class="dot"></span> Node.js <span class="dot"></span> PostgreSQL <span class="dot"></span> Convex.dev <span class="dot"></span> Generative AI <span class="dot"></span> RAG <span class="dot"></span> Docker <span class="dot"></span> GitHub Actions <span class="dot"></span></div>
+    </div>
+  </div>
+
+  <!-- ABOUT SPLIT -->
+  <section class="about-split">
+    <div class="about-img-col" id="about-img">
+      <img src="/img14.jpg" alt="Niranjan Kumar at work">
+      <p class="about-img-overlay">Silicon University — Bhubaneswar</p>
+    </div>
+    <div class="about-text-col">
+      <p class="section-label">— About Me</p>
+      <h2 class="about-heading">Code,<br>AI &amp;<br>Craft</h2>
+      <div class="about-body">
+        <p><em>Software Developer & AI Engineer</em> currently interning at Acturn Globals, building features for <em>Formester</em> — a SaaS form platform — using Vue.js, Ruby on Rails, and PostgreSQL.</p>
+        <p>I ship full-stack products across the <em>MERN stack</em>, Next.js, and Convex.dev. My recent work spans <em>AI/ML</em> — RAG pipelines, LLM integrations, and Agentic AI — alongside performance-focused frontend engineering with Three.js and real-time systems.</p>
+        <p>Every line I write is about <em>real-world impact</em> — 1000+ users on Problex, 100k+ server requests handled, and products that actually ship.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num">1k+</span>
+          <span class="stat-lbl">Problex Users</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100k+</span>
+          <span class="stat-lbl">Server Requests</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-lbl">Live Products</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section">
+    <div class="skills-header">
+      <p class="section-label">— Capabilities</p>
+      <h2 class="skills-title">Technical<br>Arsenal</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <p class="skill-cat-label">Frontend</p>
+        <ul class="skill-list">
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">React.js / Next.js</span><span class="skill-pct">92%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">TypeScript</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Vue.js</span><span class="skill-pct">80%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Tailwind CSS / Three.js</span><span class="skill-pct">85%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <p class="skill-cat-label">Backend &amp; AI</p>
+        <ul class="skill-list">
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Node.js / Express.js</span><span class="skill-pct">90%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Ruby on Rails</span><span class="skill-pct">78%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">PostgreSQL / MongoDB</span><span class="skill-pct">85%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Generative AI / RAG / LLMs</span><span class="skill-pct">80%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <p class="skill-cat-label">Cloud &amp; Tooling</p>
+        <ul class="skill-list">
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Docker / GitHub Actions</span><span class="skill-pct">82%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Convex.dev / Prisma</span><span class="skill-pct">85%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Vercel / CI-CD Pipelines</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-name-row"><span class="skill-name">Vitest / Playwright / Sentry</span><span class="skill-pct">75%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="exp-section">
+    <div class="exp-header">
+      <p class="section-label">— Work History</p>
+      <h2 class="exp-title">Experience</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-row">
+        <span class="exp-date">Jan 2025 — May 2026</span>
+        <div class="exp-body">
+          <h3 class="exp-role">Software Developer Intern</h3>
+          <p class="exp-company">Acturn Globals — Remote &nbsp;·&nbsp; Formester (SaaS Form Platform)</p>
+          <p class="exp-desc">Implemented Passkey Integration via WebAuthn APIs on Vue.js + Ruby on Rails — reducing login time by 50% over password flows. Built server-side filtering for complex nested form fields using PostgreSQL JSONB queries. Engineered conflict &amp; deletion detection for Formester's rule engine, identifying contradictory conditions and flagging missing field references proactively.</p>
+        </div>
+        <a href="https://formester.com" target="_blank" class="exp-link">Formester ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + CERTIFICATIONS -->
+  <section class="exp-section" style="border-top: 1px solid rgba(227,227,219,0.06);">
+    <div class="exp-header">
+      <p class="section-label">— Background</p>
+      <h2 class="exp-title">Education &amp;<br>Certifications</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-row">
+        <span class="exp-date">Nov 2022 — Aug 2026</span>
+        <div class="exp-body">
+          <h3 class="exp-role">B.Tech — Electronics &amp; Instrumentation</h3>
+          <p class="exp-company">Silicon University &nbsp;·&nbsp; Bhubaneswar, Odisha</p>
+          <p class="exp-desc">Bachelor of Technology in Electronics and Instrumentation Engineering. Strong foundation in systems thinking, signals, and embedded programming that informs how I approach software architecture.</p>
+        </div>
+      </div>
+      <div class="exp-row">
+        <span class="exp-date">Jun — Jul 2024</span>
+        <div class="exp-body">
+          <h3 class="exp-role">MERN Stack Certification</h3>
+          <p class="exp-company">Udemy</p>
+        </div>
+      </div>
+      <div class="exp-row">
+        <span class="exp-date">Aug — Sep 2023</span>
+        <div class="exp-body">
+          <h3 class="exp-role">Machine Learning using Python</h3>
+          <p class="exp-company">Udemy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <p class="cta-label">Open to opportunities</p>
+      <h2 class="cta-heading">Let's build<br>something<br>real</h2>
+      <a href="/src/contact.html" class="cta-btn">Get in Touch</a>
+    </div>
+  </section>
+
+  <div class="page-transition"></div>
+  <script src="/transition.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Set active nav link
-      const currentPage = window.location.pathname.split('/').pop();
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(currentPage)) {
-          link.classList.add('active');
-        }
-      });
-
-      // Register ScrollTrigger plugin
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero section animation
-      gsap.from(".hero-title", {
-        duration: 1,
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-        ease: "back.out(1.7)"
+      // Hero lines entrance
+      gsap.from(".hero-line", {
+        y: "110%", opacity: 0, duration: 1.2,
+        stagger: 0.1, ease: "power3.out", delay: 0.3
+      });
+      gsap.from(".hero-eyebrow", { opacity: 0, y: 20, duration: 0.8, delay: 0.2 });
+      gsap.from(".hero-meta", { opacity: 0, y: 20, duration: 0.8, delay: 0.9 });
+
+      // About split
+      gsap.from("#about-img img", {
+        scrollTrigger: { trigger: ".about-split", start: "top 75%" },
+        scale: 1.1, opacity: 0, duration: 1.4, ease: "power3.out"
+      });
+      gsap.from(".about-heading", {
+        scrollTrigger: { trigger: ".about-text-col", start: "top 75%" },
+        y: 60, opacity: 0, duration: 1, ease: "power3.out"
+      });
+      gsap.from(".about-body p", {
+        scrollTrigger: { trigger: ".about-body", start: "top 80%" },
+        y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out"
+      });
+      gsap.from(".stat", {
+        scrollTrigger: { trigger: ".about-stats", start: "top 85%" },
+        y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power2.out"
       });
 
-      gsap.from(".hero-image-container", {
-        duration: 1.2,
-        scale: 0.8,
-        opacity: 0,
-        ease: "elastic.out(1, 0.5)",
-        delay: 0.3
-      });
-
-      gsap.from(".tech-tag", {
-        duration: 0.8,
-        x: (i) => (i % 2 === 0 ? -50 : 50),
-        opacity: 0,
-        stagger: 0.1,
-        delay: 0.8
-      });
-
-      // Section animations
-      gsap.utils.toArray("section").forEach((section, i) => {
-        gsap.from(section, {
-          scrollTrigger: {
-            trigger: section,
-            start: "top 70%",
-            toggleActions: "play none none none"
-          },
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-          delay: i * 0.1
+      // Skill bars
+      document.querySelectorAll(".skill-fill").forEach(bar => {
+        const w = bar.dataset.width;
+        ScrollTrigger.create({
+          trigger: bar,
+          start: "top 90%",
+          onEnter: () => {
+            gsap.to(bar, { scaleX: w / 100, duration: 1.4, ease: "power3.out" });
+          }
         });
       });
 
-      // Skill bars animation
-      gsap.from(".skill-progress", {
-        scrollTrigger: {
-          trigger: ".skills-section",
-          start: "top 70%",
-          toggleActions: "play none none none"
-        },
-        scaleX: 0,
-        transformOrigin: "left center",
-        duration: 1.5,
-        ease: "expo.out",
-        stagger: 0.1
+      // Skill categories
+      gsap.from(".skill-category", {
+        scrollTrigger: { trigger: ".skills-grid", start: "top 75%" },
+        y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out"
+      });
+
+      // Experience rows
+      gsap.from(".exp-row", {
+        scrollTrigger: { trigger: ".exp-list", start: "top 80%" },
+        y: 30, opacity: 0, duration: 0.8, stagger: 0.12, ease: "power2.out"
+      });
+
+      // CTA
+      gsap.from(".cta-heading", {
+        scrollTrigger: { trigger: ".cta-section", start: "top 70%" },
+        y: 60, opacity: 0, duration: 1.2, ease: "power3.out"
       });
     });
   </script>
