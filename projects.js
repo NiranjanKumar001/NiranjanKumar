@@ -1,13 +1,28 @@
 export const projectsData = [
   {
     name: "Profocto",
-    director: "Profile Élegante",
-    location: "AI Portfolio Generator",
+    director: "Full-Stack Resume Builder",
+    location: "1k+ Users · Next.js · Convex",
   },
   {
-    name: "Problex",
-    director: "Realtime Builder",
-    location: "Next.js · Convex.dev",
+    name: "LOGILE",
+    director: "Universal Log Intelligence Engine",
+    location: "Next.js · TypeScript · REST API",
+  },
+  {
+    name: "ResYouMe",
+    director: "Resume-to-Portfolio Generator",
+    location: "React.js · Node.js · LLMs",
+  },
+  {
+    name: "Formester",
+    director: "SaaS Form Platform (52k+ Users)",
+    location: "Acorn Globus · Vue.js · Rails",
+  },
+  {
+    name: "Go Prakritik",
+    director: "E-Commerce Platform",
+    location: "MERN Stack · Razorpay",
   },
   {
     name: "Creavant",
@@ -18,20 +33,5 @@ export const projectsData = [
     name: "iPhone 16 Pro",
     director: "Apple 3D Experience",
     location: "Three.js · WebGL",
-  },
-  {
-    name: "Formester",
-    director: "No-Code Forms",
-    location: "Vue.js · Ruby on Rails",
-  },
-  {
-    name: "LOGILE",
-    director: "Log Engine",
-    location: "TypeScript · Distributed",
-  },
-  {
-    name: "Go Prakritik",
-    director: "E-Commerce",
-    location: "MERN Stack · Razorpay",
   },
 ];

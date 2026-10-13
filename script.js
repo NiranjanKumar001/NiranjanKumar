@@ -367,30 +367,30 @@ document.addEventListener("DOMContentLoaded", () => {
     imagesTimeline.to(
       ".banner-img-3",
       {
-        left: "25%",
-        top: "65%",
-        rotate: -15,
+        left: "26%",
+        top: "45%",
+        rotate: -22,
         duration: 1.5,
         ease: "hop",
         zIndex: -20,
-        filter: "blur(2px)",
-        scale: 0.8,
+        filter: "blur(1px)",
+        scale: 0.85,
       },
-      "<0.2" // Slight delay from previous animations
+      "<0.2"
     );
 
     // Add animations for banner-img-4
     imagesTimeline.to(
       ".banner-img-4",
       {
-        left: "75%",
-        top: "65%",
-        rotate: 15,
+        left: "74%",
+        top: "45%",
+        rotate: 22,
         duration: 1.5,
         ease: "hop",
         zIndex: -20,
-        filter: "blur(2px)",
-        scale: 0.8,
+        filter: "blur(1px)",
+        scale: 0.85,
       },
       "<0.1"
     );
@@ -399,14 +399,14 @@ document.addEventListener("DOMContentLoaded", () => {
     imagesTimeline.to(
       ".banner-img-5",
       {
-        left: "20%",
-        top: "75%",
-        rotate: 10,
+        left: "15%",
+        top: "47%",
+        rotate: -30,
         duration: 1.5,
         ease: "hop",
         zIndex: -30,
-        filter: "blur(4px)",
-        scale: 0.6,
+        filter: "blur(2px)",
+        scale: 0.72,
       },
       "<0.15"
     );
@@ -415,14 +415,14 @@ document.addEventListener("DOMContentLoaded", () => {
     imagesTimeline.to(
       ".banner-img-6",
       {
-        left: "80%",
-        top: "75%",
-        rotate: -10,
+        left: "85%",
+        top: "47%",
+        rotate: 30,
         duration: 1.5,
         ease: "hop",
         zIndex: -30,
-        filter: "blur(4px)",
-        scale: 0.6,
+        filter: "blur(2px)",
+        scale: 0.72,
         onComplete: () => {
           // Start the image sequence for all banner images
           startBannerImageSequence();
